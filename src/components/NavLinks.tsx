@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { BarChart2, Users } from "lucide-react";
+import { BarChart2, Receipt } from "lucide-react";
 
 export const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: BarChart2 },
-  { href: "/households", label: "Households", icon: Users },
+  { href: "/expenses", label: "Expenses", icon: Receipt },
 ];
 
 export default function NavLinks() {
@@ -15,8 +15,8 @@ export default function NavLinks() {
           href={item.href}
           className="flex items-center gap-2 px-3 py-2 hover:text-blue-600"
         >
-          <item.icon size={18} />
-          <span>{item.label}</span>
+          <item.icon size={20} />
+          <span className="">{item.label}</span>
         </Link>
       ))}
     </>

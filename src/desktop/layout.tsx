@@ -14,7 +14,11 @@ export default async function DesktopLayout({
 
   return (
     <div className="flex h-screen">
-      {data.user && <Header data={data} />}
+      {data.user && (
+        <div className="absolute top-4 right-4">
+          <Header data={data} />
+        </div>
+      )}
       {/* Sidebar */}
       {data.user && (
         <aside className="w-64 bg-gray-100 p-4 border-r">
