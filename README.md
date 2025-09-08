@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Budgetr
+
+Budgetr is a cross-platform budgeting application built with Next.js (App Router), Supabase, and TailwindCSS. It allows individuals to manage their own budgets and create households for shared budgeting. The app is designed to run as a PWA (Progressive Web App) so it can be installed on desktop, iOS, and Android.
+
+## Features
+
+- User authentication with Supabase
+- Environment-controlled account registration (public or private mode)
+- Personal and shared household budgets
+- Track expected vs actual expenses
+- Monthly and yearly breakdowns for spending insights
+- Works as a PWA across desktop and mobile
+- Self-hostable with Supabase and Vercel (or any Next.js hosting)
+
+## Tech Stack
+
+- [Next.js 13+ (App Router)](https://nextjs.org/)
+- [Supabase](https://supabase.com/) for authentication and database
+- [TailwindCSS](https://tailwindcss.com/) for styling
+- [next-pwa](https://github.com/shadowwalker/next-pwa) for PWA support
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- A Supabase project with authentication enabled
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/your-username/budgetr.git
+cd budgetr
+
+npm install
+```
+
+### Environment Variables
+
+Create a .env.local file in the project root with the following values:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+NEXT_PUBLIC_ALLOW_REGISTRATION=true
+```
+
+NEXT_PUBLIC_ALLOW_REGISTRATION can be set to false to disable self-service registrations (useful for self-hosted private instances).
+
+### Database Schema
+
+Run the following SQL in your Supabase SQL editor:
+
+```
+create table households (
+  id uuid primary key default uuid_generate_v4(),
+  name text not null,
+  created_by uuid references auth.users(id),
+  created_at timestamp default now()
+);
+
+create table memberships (
+  id uuid primary key default uuid_generate_v4(),
+  user_id uuid references auth.users(id),
+  household_id uuid references households(id),
+  role text default 'member'
+);
+
+create table budgets (
+  id uuid primary key default uuid_generate_v4(),
+  household_id uuid references households(id),
+  month int not null,
+  year int not null,
+  created_at timestamp default now()
+);
+
+create table expenses (
+  id uuid primary key default uuid_generate_v4(),
+  budget_id uuid references budgets(id),
+  title text not null,
+  date date not null,
+  expected_cost numeric not null,
+  actual_cost numeric
+);
+```
+
+Enable Row Level Security (RLS) and add appropriate access policies to secure user data.
+
+### Development
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The app will be available at http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Build and start the production server:
 
-## Learn More
+```bash
+npm run build
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Frontend: Deploy to Vercel
+- Backend: Supabase provides authentication, database, and API.
+- PWA: Can be installed on desktop, iOS, and Android.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the GNU GPLv3 License.
