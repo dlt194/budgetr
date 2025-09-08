@@ -1,20 +1,18 @@
 import { redirect } from "next/navigation";
-import { createServerSupabaseClient } from "../lib/supabaseServer";
+import { createClient } from "@/utils/supabase/server";
 
 export default async function Dashboard() {
-  const supabase = createServerSupabaseClient();
+  const supabase = await createClient();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const { data, error } = await supabase.auth.getUser();
 
-  if (!session) {
+  if (error || !data?.user) {
     redirect("/auth/login");
   }
 
   return (
     <div className="p-6">
-      <h1 className="text-xl font-bold">Welcome, {session.user.email}</h1>
+      <h1 className="text-xl font-bold">Welcome, {data.user.email}</h1>
     </div>
   );
 }

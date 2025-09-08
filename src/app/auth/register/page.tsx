@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "../../lib/supabaseClient";
-import { useRouter } from "next/navigation";
+import { signup } from "./actions";
 
 export default function RegisterPage() {
   const allowRegistration =
@@ -10,25 +9,6 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!allowRegistration) {
-      setError("Registration is disabled.");
-      return;
-    }
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-    if (error) {
-      setError(error.message);
-    } else {
-      router.push("/dashboard");
-    }
-  };
 
   /* if (!allowRegistration) {
     return (
@@ -42,10 +22,7 @@ export default function RegisterPage() {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <form
-        onSubmit={handleRegister}
-        className="bg-white shadow-lg rounded-xl p-6 w-96"
-      >
+      <form className="bg-white shadow-lg rounded-xl p-6 w-96">
         <h1 className="text-xl font-bold mb-4">Register</h1>
         {error && <p className="text-red-500 text-sm">{error}</p>}
         {!allowRegistration && (
@@ -73,6 +50,7 @@ export default function RegisterPage() {
           type="submit"
           className="bg-blue-600 text-white w-full py-2 rounded"
           disabled={!allowRegistration}
+          formAction={signup}
         >
           Register
         </button>
