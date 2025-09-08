@@ -6,8 +6,7 @@ import { signup } from "./actions";
 export default function RegisterPage() {
   const allowRegistration =
     process.env.NEXT_PUBLIC_ALLOW_REGISTRATION === "true";
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
   const [error, setError] = useState<string | null>(null);
 
   /* if (!allowRegistration) {
@@ -31,19 +30,19 @@ export default function RegisterPage() {
           </p>
         )}
         <input
+          id="email"
+          name="email"
           type="email"
           placeholder="Email"
           className="border w-full p-2 mb-2"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           disabled={!allowRegistration}
         />
         <input
+          id="password"
+          name="password"
           type="password"
           placeholder="Password"
           className="border w-full p-2 mb-2"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
           disabled={!allowRegistration}
         />
         <button
