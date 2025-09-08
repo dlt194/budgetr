@@ -113,7 +113,7 @@ npm start
 - Backend: Supabase provides authentication, database, and API.
 - PWA: Can be installed on desktop, iOS, and Android.
 
-### Roadmap
+## Roadmap
 
 Phase 1 – MVP
 
