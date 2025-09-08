@@ -16,7 +16,8 @@ export default async function MobileLayout({
   return (
     <div className="flex flex-col h-screen">
       {data.user && (
-        <div className="flex justify-end items-center p-4">
+        <div className="flex justify-between items-center p-4">
+          <h1 className="text-2xl font-bold">Budgetr</h1>
           <Header data={data} />
         </div>
       )}
