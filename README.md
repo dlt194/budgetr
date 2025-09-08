@@ -113,6 +113,41 @@ npm start
 - Backend: Supabase provides authentication, database, and API.
 - PWA: Can be installed on desktop, iOS, and Android.
 
+### Roadmap
+
+Phase 1 – MVP
+
+- User authentication (login, register, logout)
+- Personal budgets with expected vs actual expenses
+- Dashboard with monthly totals
+- PWA support for cross-platform use
+
+Phase 2 – Households & Sharing
+
+- Create and join households-
+- Shared household budgets with multiple members
+- Role-based permissions (owner, member)
+- Realtime updates with Supabase
+
+Phase 3 – Insights & History
+
+- Yearly breakdown of spending
+- Charts and trend analysis
+- Expense categorization (e.g., groceries, rent, utilities)
+- Data export (CSV, Excel)
+
+Phase 4 – Mobile Enhancements
+
+- Push notifications (bill reminders, budget overspend alerts)
+- Offline-first mode with caching
+- Receipt upload with file storage
+
+Phase 5 – Advanced
+
+- Insights into spending habits
+- Bank API integrations for auto-imported transactions
+- Multi-currency support
+
 ### License
 
 This project is licensed under the GNU GPLv3 License.
