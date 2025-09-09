@@ -9,12 +9,9 @@ interface Expense {
   type: string;
 }
 
-const ExpenseCard = ({ key, expense }: { key: number; expense: Expense }) => {
+const ExpenseCard = ({ expense }: { expense: Expense }) => {
   return (
-    <div
-      className="rounded overflow-hidden shadow-sm flex flex-col bg-white mb-2"
-      key={key}
-    >
+    <div className="rounded-lg border-gray-400 overflow-hidden shadow-sm flex flex-col bg-white mb-2">
       {/* Header with pill */}
 
       {/* Content */}

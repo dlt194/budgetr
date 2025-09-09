@@ -12,25 +12,47 @@ export default async function DesktopLayout({
 
   const { data } = await supabase.auth.getUser();
 
+  const hasUser = !!data.user;
+
   return (
-    <div className="flex h-screen">
-      {data.user && (
-        <div className="absolute top-4 right-4">
-          <Header data={data} />
-        </div>
-      )}
-      {/* Sidebar */}
-      {data.user && (
-        <aside className="w-64 bg-gray-100 p-4 border-r">
-          <h2 className="text-xl font-bold mb-6">Budgetr</h2>
-          <nav className="flex flex-col gap-2">
-            <NavLinks />
-          </nav>
-        </aside>
+    <div
+      className={
+        hasUser
+          ? // Sidebar + content grid
+            "grid h-screen grid-cols-[16rem_1fr] grid-rows-[auto_1fr] bg-white"
+          : // No-auth: single column (no sidebar/header)
+            "flex h-screen flex-col bg-white"
+      }
+    >
+      {hasUser && (
+        <>
+          {/* Sidebar (left, spans both rows) */}
+          <aside className="col-start-1 row-span-2 border-r bg-gray-100 p-4">
+            <h2 className="mb-6 text-xl font-bold">Budgetr</h2>
+            <nav className="flex flex-col gap-2">
+              <NavLinks />
+            </nav>
+          </aside>
+
+          {/* Header (top bar over content column) */}
+          <header className="col-start-2 row-start-1 border-b bg-white">
+            <div className="mx-auto flex items-center justify-end px-6 py-3">
+              {/* Pass only serializable data to the client component */}
+              <Header data={data} />
+            </div>
+          </header>
+
+          {/* Main content (scrolls) */}
+          <main className="col-start-2 row-start-2 overflow-y-auto p-6">
+            {children}
+          </main>
+        </>
       )}
 
-      {/* Main content */}
-      <main className="flex-1 overflow-y-auto p-6">{children}</main>
+      {!hasUser && (
+        // Public/unauthenticated layout
+        <main className="flex-1 overflow-y-auto">{children}</main>
+      )}
     </div>
   );
 }

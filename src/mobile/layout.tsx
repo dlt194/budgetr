@@ -14,15 +14,15 @@ export default async function MobileLayout({
   const { data } = await supabase.auth.getUser();
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen ">
       {data.user && (
-        <div className="flex justify-between items-center p-4">
+        <div className="flex justify-between items-center p-4 pb-0 ">
           <h1 className="text-2xl font-bold">Budgetr</h1>
           <Header data={data} />
         </div>
       )}
       {/* Content */}
-      <main className="flex-1 overflow-y-auto p-4">{children}</main>
+      <main className="flex-1 overflow-y-auto">{children}</main>
 
       {/* Bottom nav */}
       {data.user && (

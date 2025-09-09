@@ -20,46 +20,96 @@ export default function RegisterPage() {
   } */
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <form className="bg-white shadow-lg rounded-xl p-6 w-96">
-        <h1 className="text-xl font-bold mb-4">Register</h1>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-        {!allowRegistration && (
-          <p className="text-red-500 text-sm mb-2">
-            Account registration is disabled.
-          </p>
-        )}
-        <input
-          id="email"
-          name="email"
-          type="email"
-          placeholder="Email"
-          className="border w-full p-2 mb-2"
-          disabled={!allowRegistration}
-        />
-        <input
-          id="password"
-          name="password"
-          type="password"
-          placeholder="Password"
-          className="border w-full p-2 mb-2"
-          disabled={!allowRegistration}
-        />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white w-full py-2 rounded"
-          disabled={!allowRegistration}
-          formAction={signup}
-        >
-          Register
-        </button>
-        <a
-          href="/auth/login"
-          className="text-blue-600 hover:underline mt-2 block text-center"
-        >
-          Already have an account? Login Here
-        </a>
-      </form>
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-md">
+        {/* Card */}
+        <div className="rounded-2xl bg-white shadow-lg ring-1 ring-black/5 overflow-hidden">
+          {/* Header */}
+          <div className="px-6 pt-6 pb-4 text-center">
+            <div className="mx-auto h-12 w-12 rounded-xl bg-blue-600/10 grid place-items-center">
+              <span className="text-blue-700 text-xl font-bold">B</span>
+            </div>
+            <h1 className="mt-4 text-xl font-semibold text-slate-800">
+              Sign in to Budgetr
+            </h1>
+            <p className="mt-1 text-sm text-slate-500">
+              Track your expected vs actual spending
+            </p>
+          </div>
+
+          {/* Form */}
+          <form className="px-6 pb-6 space-y-4">
+            <div className="space-y-1.5">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-slate-700"
+              >
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                required
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-slate-900 placeholder-slate-400 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
+                placeholder="you@example.com"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-slate-700"
+                >
+                  Password
+                </label>
+                {/* Optional forgot password route (wire up later) */}
+                {/* <a href="/auth/forgot" className="text-xs text-blue-600 hover:underline">Forgot?</a> */}
+              </div>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-slate-900 placeholder-slate-400 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
+                placeholder="Your password"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="inline-flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-white font-medium shadow hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-60 disabled:cursor-not-allowed"
+              formAction={signup}
+            >
+              Register
+            </button>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3 pt-2 text-xs text-slate-400">
+              <div className="h-px flex-1 bg-slate-200" />
+              or
+              <div className="h-px flex-1 bg-slate-200" />
+            </div>
+
+            {/* Secondary actions (adjust later if you add providers) */}
+            <a
+              href="/auth/register"
+              className="block text-center text-sm font-medium text-blue-700 hover:underline"
+            >
+              Need an account? Register here
+            </a>
+          </form>
+        </div>
+
+        {/* Footer note */}
+        <p className="mt-4 text-center text-xs text-slate-500">
+          By continuing you agree to the Terms and Privacy Policy.
+        </p>
+      </div>
     </div>
   );
 }
