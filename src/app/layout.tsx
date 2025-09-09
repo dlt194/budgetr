@@ -5,6 +5,7 @@ import "./globals.css";
 import DesktopLayout from "@/desktop/layout";
 import MobileLayout from "@/mobile/layout";
 import { headers } from "next/headers";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,6 +22,20 @@ export const metadata: Metadata = {
   description: "A simple budget tracking app",
 };
 
+export function Analytics() {
+  const isDev = process.env.NODE_ENV === "development";
+
+  return (
+    <Script
+      src="https://analytics.dlt.me.uk/api/script.js"
+      data-site-id={process.env.NEXT_PUBLIC_ANALYTICS_SITE_ID}
+      {...(isDev && { "data-api-key": process.env.NEXT_PUBLIC_RYBBIT_API_KEY })}
+      data-tracking-errors="true"
+      defer
+    />
+  );
+}
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -32,6 +47,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <Analytics />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

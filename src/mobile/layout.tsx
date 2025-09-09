@@ -3,6 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import { navItems } from "@/components/NavLinks";
 import Link from "next/link";
 import Header from "@/components/Header";
+import { Plus } from "lucide-react";
 
 export default async function MobileLayout({
   children,
@@ -26,8 +27,29 @@ export default async function MobileLayout({
 
       {/* Bottom nav */}
       {data.user && (
-        <nav className="h-14 border-t bg-white flex justify-around items-center">
-          {navItems.map((item) => (
+        <nav className="relative h-14 border-t bg-white flex justify-around items-center">
+          {/* Left nav item */}
+          {navItems.slice(0, 1).map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="flex flex-col items-center text-sm"
+            >
+              <item.icon size={20} />
+              <span className="text-xs">{item.label}</span>
+            </Link>
+          ))}
+
+          {/* Floating add button */}
+          <Link
+            href="/expenses/new"
+            className="absolute -top-5 bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 transition"
+          >
+            <Plus size={24} />
+          </Link>
+
+          {/* Right nav item */}
+          {navItems.slice(1).map((item) => (
             <Link
               key={item.href}
               href={item.href}
