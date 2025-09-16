@@ -1,8 +1,5 @@
 "use client";
 
-import { createClient } from "@/utils/supabase/client";
-import { useRouter } from "next/navigation";
-import React from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -13,45 +10,33 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const Header = ({ data }) => {
-  const router = useRouter();
+import { logout } from "@/app/auth/logout/actions";
 
-  const handleSignOut = async () => {
-    const supabase = createClient();
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error("Error signing out:", error.message);
-    } else {
-      router.push("/auth/login");
-    }
-  };
+import type { User } from "@supabase/supabase-js";
+
+interface HeaderProps {
+  user: User | null;
+}
+
+export default function Header({ user }: HeaderProps) {
+  const firstLetter = user?.email?.[0]?.toUpperCase() ?? "?";
 
   return (
-    <div>
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Avatar>
-            <AvatarFallback className="bg-gray-100 text-gray-600">
-              {data.user?.email[0].toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>{data.user?.email}</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem className="hover: bg-grey-100">
-            My Profile
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            className="hover: bg-grey-100"
-            onClick={handleSignOut}
-          >
-            Sign Out
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
-  );
-};
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        <Avatar>
+          <AvatarFallback className="bg-gray-100 text-gray-600">
+            {firstLetter}
+          </AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
 
-export default Header;
+      <DropdownMenuContent align="end" className="w-48">
+        <DropdownMenuLabel>{user?.email}</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem disabled>My Profile</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => logout()}>Sign Out</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}

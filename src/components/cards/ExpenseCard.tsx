@@ -1,15 +1,10 @@
-import React from "react";
+import { Expense } from "@/hooks/useExpenses";
 
-interface Expense {
-  id: number;
-  title: string;
-  expected: number;
-  actual: number | null;
-  date: string;
-  type: string;
+interface ExpenseCardProps {
+  expense: Expense;
 }
 
-const ExpenseCard = ({ expense }: { expense: Expense }) => {
+const ExpenseCard = ({ expense }: ExpenseCardProps) => {
   return (
     <div className="rounded-lg border-gray-400 overflow-hidden shadow-sm flex flex-col bg-white mb-2">
       {/* Header with pill */}
@@ -20,11 +15,12 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
 
         <div className="text-gray-600 text-sm space-y-1">
           <p>
-            <span className="font-medium">Expected:</span> £{expense.expected}
+            <span className="font-medium">Expected:</span> £
+            {expense.expected_cost}
           </p>
           <p>
             <span className="font-medium">Actual:</span>{" "}
-            {expense.actual ? `£${expense.actual}` : "Not entered"}
+            {expense.actual_cost ? `£${expense.actual_cost}` : ""}
           </p>
           <p>
             <span className="font-medium">Expected Date:</span>{" "}

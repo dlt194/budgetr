@@ -31,6 +31,7 @@ export function Analytics() {
       data-site-id={process.env.NEXT_PUBLIC_ANALYTICS_SITE_ID}
       {...(isDev && { "data-api-key": process.env.NEXT_PUBLIC_RYBBIT_API_KEY })}
       data-tracking-errors="true"
+      data-session-replay="true"
       defer
     />
   );

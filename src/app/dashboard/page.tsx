@@ -24,11 +24,11 @@ export default async function DashboardPage() {
       {/* Stat Cards */}
       <div className="grid grid-cols-2 gap-4">
         <div className="bg-white shadow rounded-xl p-4 text-center">
-          <h2 className="text-sm text-gray-500">Expected Expenditure</h2>
+          <h2 className="text-sm text-gray-500">Expected Spend</h2>
           <p className="text-xl font-bold">£{expectedTotal}</p>
         </div>
         <div className="bg-white shadow rounded-xl p-4 text-center">
-          <h2 className="text-sm text-gray-500">Actual Expenditure</h2>
+          <h2 className="text-sm text-gray-500">Actual Spend</h2>
           <p className="text-xl font-bold">£{actualTotal}</p>
         </div>
       </div>

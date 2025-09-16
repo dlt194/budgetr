@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { BarChart2, Receipt } from "lucide-react";
+import { BarChart2, ReceiptPoundSterling } from "lucide-react";
 
 export const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: BarChart2 },
-  { href: "/expenses", label: "Expenses", icon: Receipt },
+  { href: "/expenses", label: "Expenses", icon: ReceiptPoundSterling },
 ];
 
 export default function NavLinks() {

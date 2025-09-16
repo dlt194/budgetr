@@ -1,46 +1,19 @@
-import ExpenseCard from "@/components/cards/ExpenseCard";
+import ExpensesList from "@/components/ExpensesList";
+import { createClient } from "@/utils/supabase/server";
 
 export default async function ExpensesPage() {
-  const expenses = [
-    {
-      id: 1,
-      title: "Mortgage",
-      expected: 1000,
-      actual: 1000,
-      date: "10/09/2025",
-      type: "household",
-    },
-    {
-      id: 2,
-      title: "Groceries",
-      expected: 400,
-      actual: 350,
-      date: "10/09/2025",
-      type: "household",
-    },
-    {
-      id: 3,
-      title: "Transport",
-      expected: 200,
-      actual: 250,
-      date: "10/09/2025",
-      type: "personal",
-    },
-    {
-      id: 4,
-      title: "Other",
-      expected: 400,
-      actual: 200,
-      date: "10/09/2025",
-      type: "personal",
-    },
-  ];
+  const supabase = await createClient();
+
+  // Initial server-side fetch (RLS applied)
+  const { data: initialExpenses } = await supabase
+    .from("expenses")
+    .select("*")
+    .order("date", { ascending: false });
 
   return (
     <div className="p-6 space-y-6">
-      {expenses.map((expense, index) => (
-        <ExpenseCard key={index} expense={expense} />
-      ))}
+      {/* Pass initial data into the client-side list */}
+      <ExpensesList initialExpenses={initialExpenses || []} />
     </div>
   );
 }

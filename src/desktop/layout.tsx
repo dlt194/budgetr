@@ -10,21 +10,21 @@ export default async function DesktopLayout({
 }) {
   const supabase = await createClient();
 
-  const { data } = await supabase.auth.getUser();
-
-  const hasUser = !!data.user;
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   return (
     <div
       className={
-        hasUser
+        user
           ? // Sidebar + content grid
             "grid h-screen grid-cols-[16rem_1fr] grid-rows-[auto_1fr] bg-white"
           : // No-auth: single column (no sidebar/header)
             "flex h-screen flex-col bg-white"
       }
     >
-      {hasUser && (
+      {user && (
         <>
           {/* Sidebar (left, spans both rows) */}
           <aside className="col-start-1 row-span-2 border-r bg-gray-100 p-4">
@@ -38,7 +38,7 @@ export default async function DesktopLayout({
           <header className="col-start-2 row-start-1 border-b bg-white">
             <div className="mx-auto flex items-center justify-end px-6 py-3">
               {/* Pass only serializable data to the client component */}
-              <Header data={data} />
+              <Header user={user} />
             </div>
           </header>
 
@@ -49,7 +49,7 @@ export default async function DesktopLayout({
         </>
       )}
 
-      {!hasUser && (
+      {!user && (
         // Public/unauthenticated layout
         <main className="flex-1 overflow-y-auto">{children}</main>
       )}
