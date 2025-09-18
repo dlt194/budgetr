@@ -7,9 +7,9 @@ export type Expense = {
   title: string;
   expected_cost: number;
   actual_cost: number | null;
-  date: string; // YYYY-MM-DD from Supabase
-  household_id: string | null;
-  user_id: string;
+  date: string;
+  household_id?: string | null;
+  user_id?: string;
   type: "personal" | "household";
   created_at: string;
 };

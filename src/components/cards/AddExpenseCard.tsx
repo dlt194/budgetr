@@ -24,7 +24,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-const AddNewCard = () => {
+interface AddExpenseCardProps {
+  variant: "mobile" | "desktop";
+}
+
+const AddExpenseCard = ({ variant }: AddExpenseCardProps) => {
   const [error, setError] = useState<string>();
   const [name, setName] = useState("");
   const [date, setDate] = useState<Date>();
@@ -84,9 +88,20 @@ const AddNewCard = () => {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="absolute -top-5 bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 transition">
-        <Plus size={24} />
-      </AlertDialogTrigger>
+      {variant === "mobile" ? (
+        // Mobile: floating circle button
+        <AlertDialogTrigger className="absolute -top-5 bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 transition">
+          <Plus size={24} />
+        </AlertDialogTrigger>
+      ) : (
+        // Desktop: larger, desktop friendly button
+        <AlertDialogTrigger asChild>
+          <Button className="bg-blue-600 text-white hover:bg-blue-700 transition px-6 py-3 rounded-lg font-semibold">
+            <Plus className="mr-2" size={20} />
+            Add Expense
+          </Button>
+        </AlertDialogTrigger>
+      )}
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>New Expense</AlertDialogTitle>
@@ -159,4 +174,4 @@ const AddNewCard = () => {
   );
 };
 
-export default AddNewCard;
+export default AddExpenseCard;

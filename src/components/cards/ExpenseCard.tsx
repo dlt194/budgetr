@@ -1,10 +1,12 @@
 import { Expense } from "@/hooks/useExpenses";
+import EditExpenseCard from "@/components/cards/EditExpenseCard";
 
 interface ExpenseCardProps {
   expense: Expense;
+  variant: "mobile" | "desktop";
 }
 
-const ExpenseCard = ({ expense }: ExpenseCardProps) => {
+const ExpenseCard = ({ variant, expense }: ExpenseCardProps) => {
   return (
     <div className="rounded-lg border-gray-400 overflow-hidden shadow-sm flex flex-col bg-white mb-2">
       {/* Header with pill */}
@@ -38,9 +40,7 @@ const ExpenseCard = ({ expense }: ExpenseCardProps) => {
         >
           {expense.type === "household" ? "Household" : "Personal"}
         </span>
-        <button className="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
-          Edit
-        </button>
+        <EditExpenseCard expenseId={expense.id} variant={variant} />
       </div>
     </div>
   );

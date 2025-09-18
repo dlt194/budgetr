@@ -3,12 +3,14 @@ import { createClient } from "@/utils/supabase/server";
 import { navItems } from "@/components/NavLinks";
 import Link from "next/link";
 import Header from "@/components/Header";
-import AddNewCard from "@/components/cards/AddNewCard";
+import AddExpenseCard from "@/components/cards/AddExpenseCard";
 
 export default async function MobileLayout({
   children,
+  variant,
 }: {
   children: ReactNode;
+  variant: "mobile" | "desktop";
 }) {
   const supabase = await createClient();
 
@@ -43,7 +45,7 @@ export default async function MobileLayout({
           ))}
 
           {/* Floating add button */}
-          <AddNewCard />
+          <AddExpenseCard variant={variant} />
 
           {/* Right nav item */}
           {navItems.slice(1).map((item) => (

@@ -1,7 +1,11 @@
 import ExpensesList from "@/components/ExpensesList";
 import { createClient } from "@/utils/supabase/server";
 
-export default async function ExpensesPage() {
+interface ExpensesPageProps {
+  variant: "mobile" | "desktop";
+}
+
+export default async function ExpensesPage({ variant }: ExpensesPageProps) {
   const supabase = await createClient();
 
   // Initial server-side fetch (RLS applied)
@@ -13,7 +17,7 @@ export default async function ExpensesPage() {
   return (
     <div className="p-6 space-y-6">
       {/* Pass initial data into the client-side list */}
-      <ExpensesList initialExpenses={initialExpenses || []} />
+      <ExpensesList initialExpenses={initialExpenses || []} variant={variant} />
     </div>
   );
 }

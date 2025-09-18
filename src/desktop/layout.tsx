@@ -2,11 +2,14 @@ import { ReactNode } from "react";
 import { createClient } from "@/utils/supabase/server";
 import NavLinks from "@/components/NavLinks";
 import Header from "@/components/Header";
+import AddExpenseCard from "@/components/cards/AddExpenseCard";
 
 export default async function DesktopLayout({
   children,
+  variant,
 }: {
   children: ReactNode;
+  variant: "mobile" | "desktop";
 }) {
   const supabase = await createClient();
 
@@ -28,9 +31,19 @@ export default async function DesktopLayout({
         <>
           {/* Sidebar (left, spans both rows) */}
           <aside className="col-start-1 row-span-2 border-r bg-gray-100 p-4">
-            <h2 className="mb-6 text-xl font-bold">Budgetr</h2>
+            <div className="flex items-center gap-3 pb-2">
+              <div className="h-12 w-12 rounded-xl bg-blue-600/10 grid place-items-center">
+                <span className="text-blue-700 text-xl font-bold">B</span>
+              </div>
+              <h1 className="text-xl font-semibold text-slate-800">Budgetr</h1>
+            </div>
+
             <nav className="flex flex-col gap-2">
               <NavLinks />
+
+              <div className="mt-auto flex items-center gap-2 px-3 py-2">
+                <AddExpenseCard variant={variant} />
+              </div>
             </nav>
           </aside>
 

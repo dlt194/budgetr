@@ -55,9 +55,9 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {isMobile ? (
-          <MobileLayout>{children}</MobileLayout>
+          <MobileLayout variant="mobile">{children}</MobileLayout>
         ) : (
-          <DesktopLayout>{children}</DesktopLayout>
+          <DesktopLayout variant="desktop">{children}</DesktopLayout>
         )}
       </body>
     </html>
