@@ -9,7 +9,7 @@ export default function RegisterPage() {
 
   const [error, setError] = useState<string | null>(null);
 
-  /* if (!allowRegistration) {
+  if (!allowRegistration) {
     return (
       <div className="flex items-center justify-center h-screen">
         <p className="text-red-500 text-lg">
@@ -17,7 +17,7 @@ export default function RegisterPage() {
         </p>
       </div>
     );
-  } */
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 flex items-center justify-center px-4 py-10">
@@ -30,7 +30,7 @@ export default function RegisterPage() {
               <span className="text-blue-700 text-xl font-bold">B</span>
             </div>
             <h1 className="mt-4 text-xl font-semibold text-slate-800">
-              Sign in to Budgetr
+              Register for Budgetr
             </h1>
             <p className="mt-1 text-sm text-slate-500">
               Track your expected vs actual spending
@@ -66,8 +66,6 @@ export default function RegisterPage() {
                 >
                   Password
                 </label>
-                {/* Optional forgot password route (wire up later) */}
-                {/* <a href="/auth/forgot" className="text-xs text-blue-600 hover:underline">Forgot?</a> */}
               </div>
               <input
                 id="password"
@@ -97,10 +95,10 @@ export default function RegisterPage() {
 
             {/* Secondary actions (adjust later if you add providers) */}
             <a
-              href="/auth/register"
+              href="/auth/login"
               className="block text-center text-sm font-medium text-blue-700 hover:underline"
             >
-              Need an account? Register here
+              Have an account? Sign in here
             </a>
           </form>
         </div>

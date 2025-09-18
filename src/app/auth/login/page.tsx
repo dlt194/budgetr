@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { login } from "./actions";
 
 export default function LoginPage() {
-  const [error, setError] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "";
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 flex items-center justify-center px-4 py-10">
@@ -66,7 +67,10 @@ export default function LoginPage() {
                 placeholder="Your password"
               />
             </div>
-
+            {/* Hidden redirect input */}
+            {redirectTo && (
+              <input type="hidden" name="redirect" value={redirectTo} />
+            )}
             <button
               type="submit"
               className="inline-flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-white font-medium shadow hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-60 disabled:cursor-not-allowed"
